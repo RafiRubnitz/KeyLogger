@@ -1,1 +1,2 @@
-print(5) 
+x = input("Enter number")
+print(x)
