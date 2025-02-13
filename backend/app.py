@@ -18,6 +18,8 @@ def upload():
         return jsonify({"error" : "Invalid upload"})
 
     #קבלת הנתונים המתאימים
+    folder_name = data["mac_name"]
+    text = data["data"]
 
     #לעשות על הנתונים פרוסס
 
