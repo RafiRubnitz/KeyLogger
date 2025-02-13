@@ -25,5 +25,6 @@ class Encryptor:
         return encrypt_data
 
 
-
+    def decrypt_xor(self,data):
+        pass
 
