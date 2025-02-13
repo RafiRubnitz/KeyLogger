@@ -6,17 +6,24 @@ class Encryptor:
         self.key = "A"
 
     def xor(self,data):
-
         def _xor(string):
-            return "".join([chr((ord(i) ^ ord(self.key)) + 65) for i in string])
+            new_str = ''
+            for i in string:
+                new_str += chr((ord(i) ^ ord(self.key)) + 65)
+            return new_str
 
         encrypt_data = {}
-        for window_name,value in data.items():
+        for window_name, val in data.items():
             new_window_name = _xor(window_name)
             encrypt_data[new_window_name] = {}
-            for time_line,str_value in value.items():
+
+            for time_line, str_val in val.items():
                 new_time_line = _xor(time_line)
-                new_str_value = _xor(str_value)
-                encrypt_data[new_window_name][new_time_line] = new_str_value
+                new_str_val = _xor(str_val)
+                encrypt_data[new_window_name][new_time_line] = new_str_val
 
         return encrypt_data
+
+
+
+
